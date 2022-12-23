@@ -4,19 +4,18 @@ import java.time.Duration;
 
 import Projeto_sem_interface.model.entities.CarRental;
 import Projeto_sem_interface.model.entities.Invoice;
-import Projeto_sem_interface.model.services.BrazilTaxesService;
 
 public class RentalServices {
 
     private Double pricePerDay;
     private Double pricePerHour;
 
-    private BrazilTaxesService brazilTaxesServicetaxService;
+    private TaxService taxService;
 
-    public RentalServices(Double pricePerHour, Double pricePerDay, BrazilTaxesService brazilTaxesService) {
+    public RentalServices(Double pricePerHour, Double pricePerDay, TaxService taxService) {
         this.pricePerDay = pricePerDay;
         this.pricePerHour = pricePerHour;
-        this.brazilTaxesServicetaxService = brazilTaxesService;
+        this.taxService = taxService;
     }
 
     public void processInvoice(CarRental carRental) {
@@ -32,7 +31,7 @@ public class RentalServices {
             basicPayment = pricePerDay * Math.ceil(hours / 24);
         }
 
-        double tax = brazilTaxesServicetaxService.tax(basicPayment);
+        double tax = taxService.tax(basicPayment);
 
         carRental.setInvoice(new Invoice(basicPayment, tax));
     }

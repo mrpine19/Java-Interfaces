@@ -1,6 +1,6 @@
 package Projeto_sem_interface.model.services;
 
-public class BrazilTaxesService {
+public class BrazilTaxService implements TaxService {
     public double tax(double amount){
         if(amount <= 100){
             return amount * 0.20;

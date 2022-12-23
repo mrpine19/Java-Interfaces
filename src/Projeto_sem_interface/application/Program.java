@@ -2,7 +2,7 @@ package Projeto_sem_interface.application;
 
 import Projeto_sem_interface.model.entities.CarRental;
 import Projeto_sem_interface.model.entities.Vehicle;
-import Projeto_sem_interface.model.services.BrazilTaxesService;
+import Projeto_sem_interface.model.services.BrazilTaxService;
 import Projeto_sem_interface.model.services.RentalServices;
 
 import java.time.LocalDateTime;
@@ -32,15 +32,14 @@ public class Program {
         System.out.print("Entre com o preço por dia: ");
         double pricePerDay = sc.nextDouble();
 
-        RentalServices rentalServices = new RentalServices(pricePerHour, pricePerDay, new BrazilTaxesService());
+        RentalServices rentalServices = new RentalServices(pricePerHour, pricePerDay, new BrazilTaxService());
 
         rentalServices.processInvoice(cr);
 
         System.out.println("Fatura:");
-        double pagamento = cr.getInvoice().getBasicPayment();
-        System.out.println("Pagamento básico: "+pagamento);
-        System.out.println("Imposto: "+cr.getInvoice().getTax());
-        System.out.println("Pagamento total: "+cr.getInvoice().getTotalPayment());
+        System.out.println("Pagamento básico: "+String.format("%.2f", cr.getInvoice().getBasicPayment()));
+        System.out.println("Imposto: "+String.format("%.2f", cr.getInvoice().getTax()));
+        System.out.println("Pagamento total: "+String.format("%.2f", cr.getInvoice().getTotalPayment()));
 
 
         sc.close();
